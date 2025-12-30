@@ -4,63 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KasFlow - Platform Keuangan Blockchain Enterprise</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-        
-        body { font-family: 'Inter', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        html { scroll-behavior: smooth; }
-
-        /* Custom glow effects */
-        .glow-lime { box-shadow: 0 0 40px -10px rgba(190, 242, 100, 0.3); }
-        .glow-text { text-shadow: 0 0 20px rgba(190, 242, 100, 0.5); }
-        
-        /* Grid background pattern */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        }
-
-        /* Dashboard specific scrollbar */
-        .dash-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
-        .dash-scroll::-webkit-scrollbar-track { background: #1e293b; }
-        .dash-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        .dash-scroll::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        /* Infinite Scroll Animation */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-            animation: scroll 20s linear infinite;
-        }
-
-        /* Accordion Transition */
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] summary ~ * { animation: sweep .3s ease-in-out; }
-        @keyframes sweep {
-            0%    {opacity: 0; transform: translateY(-10px) }
-            100%  {opacity: 1; transform: translateY(0) }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-[#0f172a] text-slate-200">
 
-    <!-- ========================================== -->
-    <!-- VIEW 1: LANDING PAGE WRAPPER -->
-    <!-- ========================================== -->
     <div id="landing-view" class="w-full transition-opacity duration-500">
         
-        <!-- NAVIGATION -->
         <nav class="fixed w-full z-50 bg-[#0f172a]/80 backdrop-blur-lg border-b border-white/5">
             <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <!-- Logo -->
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-[#bef264] rounded-lg flex items-center justify-center text-slate-900 shadow-lg shadow-lime-400/20">
                         <i data-lucide="wallet" class="w-5 h-5"></i>
@@ -68,7 +22,6 @@
                     <span class="text-xl font-bold tracking-wide text-white">KasFlow</span>
                 </div>
 
-                <!-- Links -->
                 <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
                     <a href="#features" class="hover:text-white transition">Platform</a>
                     <a href="#compliance" class="hover:text-white transition">Keamanan</a>
@@ -76,24 +29,20 @@
                     <a href="#pricing" class="hover:text-white transition">Harga</a>
                 </div>
 
-                <!-- CTA -->
                 <div class="flex items-center gap-4">
                     <button id="loginBtn" class="hidden md:block text-sm font-medium text-white hover:text-[#bef264] transition">Masuk</button>
-                    <a href="#" class="bg-[#bef264] hover:bg-[#a3e635] text-slate-900 text-sm font-bold px-5 py-2.5 rounded-xl transition shadow-lg shadow-lime-400/10 hover:shadow-lime-400/30">
+                    <button id="registerBtn" class="bg-[#bef264] hover:bg-[#a3e635] text-slate-900 text-sm font-bold px-5 py-2.5 rounded-xl transition shadow-lg shadow-lime-400/10 hover:shadow-lime-400/30">
                         Mulai Sekarang
-                    </a>
+                    </button>
                 </div>
             </div>
         </nav>
 
-        <!-- HERO SECTION -->
         <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-            <!-- Background Elements -->
             <div class="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#bef264] opacity-10 blur-[120px] rounded-full -z-10"></div>
 
             <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-                <!-- Badge -->
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-medium text-[#bef264] mb-8 animate-fade-in-up hover:border-[#bef264]/50 transition cursor-pointer">
                     <span class="relative flex h-2 w-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
@@ -102,7 +51,6 @@
                     Live di Ethereum Testnet (Sepolia)
                 </div>
 
-                <!-- Headline -->
                 <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-tight">
                     Tata Kelola Keuangan <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#bef264] to-emerald-400">Di Atas Blockchain.</span>
@@ -112,7 +60,6 @@
                     Platform audit kelas enterprise pertama yang memberikan transparansi 100% dan catatan keuangan yang kekal untuk organisasi masa depan.
                 </p>
 
-                <!-- Hero CTA -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-16">
                     <a href="#demo" class="w-full md:w-auto px-8 py-4 bg-[#bef264] hover:bg-[#a3e635] text-slate-900 font-bold rounded-xl transition shadow-xl shadow-lime-400/20 flex items-center justify-center gap-2">
                         <i data-lucide="play-circle" class="w-5 h-5"></i> Lihat Demo Interaktif
@@ -122,7 +69,6 @@
                     </a>
                 </div>
 
-                <!-- Hero Image / Dashboard Mockup -->
                 <div class="relative max-w-5xl mx-auto">
                     <div class="absolute -inset-1 bg-gradient-to-r from-[#bef264] to-blue-600 rounded-3xl blur opacity-20"></div>
                     <div class="relative bg-[#0f172a] rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
@@ -166,14 +112,12 @@
             </div>
         </section>
 
-        <!-- UPGRADED: INFINITE PARTNER MARQUEE -->
         <section class="py-10 border-y border-white/5 bg-[#0b1120] overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
                 <p class="text-xs font-bold tracking-widest text-slate-500 uppercase">Dipercaya oleh Organisasi & Lembaga Pemerintah Terkemuka</p>
             </div>
             <div class="relative w-full overflow-hidden">
                 <div class="flex whitespace-nowrap animate-scroll">
-                    <!-- Set 1 -->
                     <div class="flex items-center gap-16 mx-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="building-2" class="w-6 h-6"></i> Kemenkeu RI</div>
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="landmark" class="w-6 h-6"></i> GovTech Jabar</div>
@@ -181,7 +125,6 @@
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="users" class="w-6 h-6"></i> NGO Connect</div>
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="box" class="w-6 h-6"></i> BlockFoundation</div>
                     </div>
-                    <!-- Set 2 (Duplicate for loop) -->
                     <div class="flex items-center gap-16 mx-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="building-2" class="w-6 h-6"></i> Kemenkeu RI</div>
                         <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="landmark" class="w-6 h-6"></i> GovTech Jabar</div>
@@ -190,13 +133,11 @@
                          <div class="flex items-center gap-2 text-xl font-bold text-white"><i data-lucide="box" class="w-6 h-6"></i> BlockFoundation</div>
                     </div>
                 </div>
-                <!-- Fade Edges -->
                 <div class="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-[#0b1120] to-transparent z-10"></div>
                 <div class="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-[#0b1120] to-transparent z-10"></div>
             </div>
         </section>
 
-        <!-- FEATURES GRID -->
         <section id="features" class="py-24 bg-[#0f172a] relative">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-16">
@@ -232,7 +173,6 @@
             </div>
         </section>
 
-        <!-- NEW SECTION: SECURITY COMPLIANCE (B2B TRUST SIGNAL) -->
         <section id="compliance" class="py-12 bg-[#0b1120] border-y border-slate-800">
             <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="text-left">
@@ -256,10 +196,8 @@
             </div>
         </section>
 
-        <!-- PRODUCT DEMO SECTION -->
         <section id="demo" class="py-24 bg-slate-900">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <!-- Left: Explanation -->
                 <div>
                     <div class="inline-block px-3 py-1 rounded-full bg-[#bef264]/10 text-[#bef264] text-xs font-bold mb-6">PENGALAMAN PRODUK</div>
                     <h2 class="text-4xl font-bold text-white mb-6">Input Cerdas. <br>Output Aman.</h2>
@@ -268,21 +206,15 @@
                     </p>
                     <ul class="space-y-4 mb-8">
                         <li class="flex items-start gap-3">
-                            <div class="bg-[#bef264]/20 p-1 rounded">
-                                <i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i>
-                            </div>
+                            <div class="bg-[#bef264]/20 p-1 rounded"><i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i></div>
                             <span class="text-slate-300">Hashing otomatis metadata transaksi.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="bg-[#bef264]/20 p-1 rounded">
-                                <i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i>
-                            </div>
+                            <div class="bg-[#bef264]/20 p-1 rounded"><i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i></div>
                             <span class="text-slate-300">Penyimpanan bukti pembayaran terenkripsi (IPFS).</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="bg-[#bef264]/20 p-1 rounded">
-                                <i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i>
-                            </div>
+                            <div class="bg-[#bef264]/20 p-1 rounded"><i data-lucide="check" class="w-4 h-4 text-[#bef264] shrink-0"></i></div>
                             <span class="text-slate-300">Estimasi & optimasi Gas Fee real-time.</span>
                         </li>
                     </ul>
@@ -291,7 +223,6 @@
                     </button>
                 </div>
 
-                <!-- Right: The UI Component (Embedded) -->
                 <div class="relative">
                     <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-500 rounded-full blur-[80px] opacity-20"></div>
                     <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#bef264] rounded-full blur-[80px] opacity-20"></div>
@@ -339,7 +270,6 @@
             </div>
         </section>
 
-        <!-- PRICING SECTION -->
         <section id="pricing" class="py-24 bg-[#0f172a]">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-16">
@@ -348,7 +278,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <!-- Basic Plan -->
                     <div class="bg-[#1e293b] rounded-3xl p-8 border border-slate-700 flex flex-col hover:border-slate-500 transition">
                         <div class="mb-4">
                             <span class="text-slate-400 font-bold text-sm uppercase tracking-wider">Desa / Kelurahan</span>
@@ -363,11 +292,8 @@
                         <button class="w-full py-3 rounded-xl border border-slate-600 text-white font-semibold hover:bg-slate-800 transition">Mulai Basic</button>
                     </div>
 
-                    <!-- Pro Plan (Highlight) -->
                     <div class="bg-[#1e293b] rounded-3xl p-8 border-2 border-[#bef264] relative shadow-[0_0_40px_rgba(190,242,100,0.1)] transform md:-translate-y-4 flex flex-col">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#bef264] text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">
-                            Paling Populer
-                        </div>
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#bef264] text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg">Paling Populer</div>
                         <div class="mb-4">
                             <span class="text-[#bef264] font-bold text-sm uppercase tracking-wider">Instansi Kota</span>
                             <h3 class="text-3xl font-bold text-white mt-2">Rp 2.5jt<span class="text-base text-slate-500 font-normal">/bulan</span></h3>
@@ -382,7 +308,6 @@
                         <button class="w-full py-3 rounded-xl bg-[#bef264] hover:bg-[#a3e635] text-slate-900 font-bold transition shadow-lg">Pilih Pro</button>
                     </div>
 
-                    <!-- Enterprise Plan -->
                     <div class="bg-[#1e293b] rounded-3xl p-8 border border-slate-700 flex flex-col hover:border-slate-500 transition">
                         <div class="mb-4">
                             <span class="text-slate-400 font-bold text-sm uppercase tracking-wider">Enterprise / NGO</span>
@@ -400,11 +325,9 @@
             </div>
         </section>
 
-        <!-- NEW SECTION: EXECUTIVE FAQ (B2B Requirement) -->
         <section class="py-24 bg-[#0b1120] border-t border-slate-800">
             <div class="max-w-3xl mx-auto px-6">
                 <h2 class="text-3xl font-bold text-white mb-10 text-center">Pertanyaan yang Sering Diajukan</h2>
-                
                 <div class="space-y-4">
                     <details class="group bg-[#1e293b] rounded-xl border border-slate-700 overflow-hidden cursor-pointer">
                         <summary class="flex justify-between items-center font-medium p-6 text-slate-200 hover:text-[#bef264] transition">
@@ -415,7 +338,6 @@
                             Kami menggunakan smart contract berbasis Ethereum. Setelah hash transaksi dibuat dan ditambang ke dalam blok, secara matematis mustahil untuk mengubah catatan tersebut tanpa menguasai 51% hashrate jaringan global.
                         </div>
                     </details>
-
                     <details class="group bg-[#1e293b] rounded-xl border border-slate-700 overflow-hidden cursor-pointer">
                         <summary class="flex justify-between items-center font-medium p-6 text-slate-200 hover:text-[#bef264] transition">
                             Apakah kompatibel dengan sistem ERP yang ada?
@@ -425,7 +347,6 @@
                             Ya. KasFlow menawarkan RESTful API dan webhook yang terintegrasi mulus dengan SAP, Oracle, dan sistem SIPD pemerintah daerah untuk mendorong data ke blockchain secara otomatis.
                         </div>
                     </details>
-
                     <details class="group bg-[#1e293b] rounded-xl border border-slate-700 overflow-hidden cursor-pointer">
                         <summary class="flex justify-between items-center font-medium p-6 text-slate-200 hover:text-[#bef264] transition">
                             Apa yang terjadi jika kami kehilangan kunci privat (private keys)?
@@ -439,10 +360,8 @@
             </div>
         </section>
 
-        <!-- CTA & FOOTER -->
         <footer class="bg-[#0b1120] pt-20 pb-10 border-t border-slate-800">
             <div class="max-w-7xl mx-auto px-6">
-                <!-- Final CTA -->
                 <div class="bg-gradient-to-r from-[#1e293b] to-slate-800 rounded-3xl p-10 md:p-16 text-center mb-20 border border-slate-700 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-[#bef264] opacity-5 rounded-full blur-3xl"></div>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Siap Membangun Kembali Kepercayaan?</h2>
@@ -453,13 +372,10 @@
                     </div>
                 </div>
 
-                <!-- Footer Links -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
                     <div class="col-span-2 md:col-span-1">
                         <div class="flex items-center gap-2 mb-4">
-                            <div class="w-6 h-6 bg-[#bef264] rounded-md flex items-center justify-center text-slate-900">
-                                <i data-lucide="wallet" class="w-3 h-3"></i>
-                            </div>
+                            <div class="w-6 h-6 bg-[#bef264] rounded-md flex items-center justify-center text-slate-900"><i data-lucide="wallet" class="w-3 h-3"></i></div>
                             <span class="text-lg font-bold text-white">KasFlow</span>
                         </div>
                         <p class="text-sm text-slate-500">Platform Transparansi Keuangan berbasis Blockchain #1 di Asia Tenggara.</p>
@@ -503,69 +419,43 @@
             </div>
         </footer>
 
-        <!-- AUTHENTICATION MODAL -->
         <div id="authModal" class="fixed inset-0 z-[100] hidden">
-            <!-- Backdrop -->
             <div class="absolute inset-0 bg-[#0f172a]/80 backdrop-blur-sm transition-opacity" id="modalBackdrop"></div>
-            
-            <!-- Modal Content -->
             <div class="relative min-h-screen flex items-center justify-center p-4">
                 <div class="bg-[#1e293b] w-full max-w-md rounded-3xl border border-slate-700 shadow-2xl relative overflow-hidden animate-fade-in-up">
-                    
-                    <!-- Close Button (Fixed: Added z-50 to bring to front) -->
-                    <button id="closeModal" class="absolute top-4 right-4 text-slate-400 hover:text-white transition bg-slate-800/50 p-2 rounded-full z-50">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-
-                    <!-- Decorative Elements (Fixed: Added pointer-events-none) -->
+                    <button id="closeModal" class="absolute top-4 right-4 text-slate-400 hover:text-white transition bg-slate-800/50 p-2 rounded-full z-50"><i data-lucide="x" class="w-5 h-5"></i></button>
                     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#bef264] to-transparent pointer-events-none"></div>
                     <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#bef264] opacity-5 rounded-full blur-2xl pointer-events-none"></div>
 
                     <div class="p-8">
                         <div class="text-center mb-8">
-                            <div class="w-12 h-12 bg-[#bef264]/10 rounded-xl flex items-center justify-center text-[#bef264] mx-auto mb-4 border border-[#bef264]/20">
-                                <i data-lucide="wallet" class="w-6 h-6"></i>
-                            </div>
+                            <div class="w-12 h-12 bg-[#bef264]/10 rounded-xl flex items-center justify-center text-[#bef264] mx-auto mb-4 border border-[#bef264]/20"><i data-lucide="wallet" class="w-6 h-6"></i></div>
                             <h3 class="text-2xl font-bold text-white">Selamat Datang</h3>
                             <p class="text-slate-400 text-sm mt-1">Masuk untuk mengakses dashboard Anda.</p>
                         </div>
-
                         <form id="loginForm" onsubmit="event.preventDefault();" class="space-y-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Email Instansi</label>
                                 <div class="relative">
                                     <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
-                                    <input type="email" placeholder="admin@gov.id" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-[#bef264] focus:ring-1 focus:ring-[#bef264] transition placeholder-slate-600">
+                                    <input type="email" placeholder="admin@gov.id" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-[#bef264] transition placeholder-slate-600">
                                 </div>
                             </div>
-
                             <div>
                                 <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Kata Sandi</label>
                                 <div class="relative">
                                     <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
-                                    <input type="password" placeholder="••••••••" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-[#bef264] focus:ring-1 focus:ring-[#bef264] transition placeholder-slate-600">
+                                    <input type="password" placeholder="••••••••" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none focus:border-[#bef264] transition placeholder-slate-600">
                                 </div>
                             </div>
-
-                            <button type="submit" id="doLoginBtn" class="w-full bg-[#bef264] hover:bg-[#a3e635] text-slate-900 font-bold py-3 rounded-xl shadow-lg shadow-lime-400/20 transition flex items-center justify-center gap-2 group">
+                            <button type="submit" id="doLoginBtn" class="w-full bg-[#bef264] hover:bg-[#a3e635] text-slate-900 font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 group">
                                 Akses Dashboard <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
                             </button>
                         </form>
-
-                        <div class="relative my-8">
-                            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-700"></div></div>
-                            <div class="relative flex justify-center text-xs uppercase"><span class="bg-[#1e293b] px-2 text-slate-500 font-bold">Atau lanjut dengan</span></div>
-                        </div>
-
+                        <div class="relative my-8"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-700"></div></div><div class="relative flex justify-center text-xs uppercase"><span class="bg-[#1e293b] px-2 text-slate-500 font-bold">Atau lanjut dengan</span></div></div>
                         <div class="grid grid-cols-2 gap-4">
-                            <button class="flex items-center justify-center gap-2 py-2.5 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition text-sm font-medium">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .533 5.347.533 12s5.333 12 11.947 12c3.44 0 6.04-1.133 8.16-3.293 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.133H12.48z"/></svg>
-                                Google
-                            </button>
-                            <button class="flex items-center justify-center gap-2 py-2.5 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition text-sm font-medium">
-                            <i data-lucide="wallet" class="w-4 h-4"></i>
-                            Wallet Connect
-                            </button>
+                            <button class="flex items-center justify-center gap-2 py-2.5 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 transition text-sm font-medium"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .533 5.347.533 12s5.333 12 11.947 12c3.44 0 6.04-1.133 8.16-3.293 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.133H12.48z"/></svg> Google</button>
+                            <button class="flex items-center justify-center gap-2 py-2.5 border border-slate-700 rounded-xl text-slate-300 hover:bg-slate-800 transition text-sm font-medium"><i data-lucide="wallet" class="w-4 h-4"></i> Wallet Connect</button>
                         </div>
                     </div>
                 </div>
@@ -574,150 +464,65 @@
     </div>
 
 
-    <!-- ========================================== -->
-    <!-- VIEW 2: DASHBOARD WRAPPER (Hidden by default) -->
-    <!-- ========================================== -->
     <div id="dashboard-view" class="w-full h-screen hidden bg-[#0f172a] text-slate-200 overflow-hidden flex">
-        <!-- SIDEBAR -->
         <aside class="w-64 bg-[#1e293b] border-r border-slate-700 flex flex-col justify-between hidden md:flex">
             <div>
-                <!-- Logo -->
                 <div class="p-6 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-[#bef264] rounded-xl flex items-center justify-center text-slate-900 shadow-[0_0_15px_rgba(190,242,100,0.3)]">
-                        <i data-lucide="wallet" class="w-6 h-6"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-[#bef264] rounded-xl flex items-center justify-center text-slate-900 shadow-[0_0_15px_rgba(190,242,100,0.3)]"><i data-lucide="wallet" class="w-6 h-6"></i></div>
                     <span class="text-xl font-bold tracking-wide text-white">KasFlow</span>
                 </div>
-
-                <!-- Menu -->
                 <nav class="mt-6 px-4 space-y-2">
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-[#bef264] text-slate-900 rounded-xl font-semibold shadow-lg shadow-lime-400/10 transition-all">
-                        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-                        Dashboard
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all">
-                        <i data-lucide="eye" class="w-5 h-5"></i>
-                        Public Ledger
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all">
-                        <i data-lucide="file-search" class="w-5 h-5"></i>
-                        Laporan Audit
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all">
-                        <i data-lucide="settings" class="w-5 h-5"></i>
-                        Pengaturan
-                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-[#bef264] text-slate-900 rounded-xl font-semibold shadow-lg"> <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all"> <i data-lucide="eye" class="w-5 h-5"></i> Public Ledger </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all"> <i data-lucide="file-search" class="w-5 h-5"></i> Laporan Audit </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-xl transition-all"> <i data-lucide="settings" class="w-5 h-5"></i> Pengaturan </a>
                 </nav>
             </div>
-
-            <!-- Bottom Status -->
             <div class="p-4 m-4">
                 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 mb-4">
-                    <div class="flex items-center gap-2 text-xs text-slate-400 uppercase font-bold mb-2">
-                        <i data-lucide="link" class="w-3 h-3"></i> Status Jaringan
-                    </div>
-                    <div class="flex items-center gap-2 text-[#bef264] text-sm font-medium">
-                        <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span>
-                        </span>
-                        Mainnet Terhubung
-                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-400 uppercase font-bold mb-2"><i data-lucide="link" class="w-3 h-3"></i> Status Jaringan</div>
+                    <div class="flex items-center gap-2 text-[#bef264] text-sm font-medium"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span></span> Mainnet Terhubung</div>
                 </div>
-                
-                <!-- LOGOUT BUTTON (Triggers JS to go back to Landing) -->
-                <button id="logoutBtn" class="w-full flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-red-400 hover:bg-slate-800/50 rounded-lg transition text-sm font-medium">
-                    <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
-                </button>
+                <button id="logoutBtn" class="w-full flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-red-400 hover:bg-slate-800/50 rounded-lg transition text-sm font-medium"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</button>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="flex-1 flex flex-col h-screen overflow-y-auto relative dash-scroll">
-            <!-- Background Glow Effect -->
             <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-[#1e293b] to-transparent pointer-events-none -z-10"></div>
-
-            <!-- Header -->
             <header class="px-8 py-6 flex justify-between items-center sticky top-0 z-20 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800/50">
-                <div>
-                    <h1 class="text-2xl font-bold text-white">Dashboard Transparansi</h1>
-                    <p class="text-slate-400 text-sm mt-1">Memantau dana publik secara real-time.</p>
-                </div>
+                <div><h1 class="text-2xl font-bold text-white">Dashboard Transparansi</h1><p class="text-slate-400 text-sm mt-1">Memantau dana publik secara real-time.</p></div>
                 <div class="flex items-center gap-4">
-                    <button class="p-2 text-slate-400 hover:text-white transition">
-                        <i data-lucide="bell" class="w-6 h-6"></i>
+                    <button class="p-2 text-slate-400 hover:text-white transition"><i data-lucide="bell" class="w-6 h-6"></i></button>
+                    <button id="openTransModal" class="bg-[#bef264] hover:bg-[#a3e635] text-slate-900 text-sm font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-lg shadow-lime-400/20">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah
                     </button>
-                    <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
-                        <div class="w-8 h-8 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full"></div>
-                        <span class="text-sm font-medium">Admin Dinas</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
-                    </div>
+                    <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-full border border-slate-700"><div class="w-8 h-8 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full"></div><span class="text-sm font-medium">Admin Dinas</span><i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i></div>
                 </div>
             </header>
 
-            <!-- Content Container -->
             <div class="px-8 pb-8 space-y-8 pt-8">
-                
-                <!-- KPI CARDS -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Total Masuk -->
-                    <div class="bg-[#d9f99d] p-6 rounded-3xl text-slate-900 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(217,249,157,0.4)] transition-all">
-                        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/30 rounded-full blur-2xl group-hover:bg-white/50 transition-all"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="bg-black/10 p-2 rounded-lg"><i data-lucide="arrow-down-left" class="w-6 h-6"></i></div>
-                            <span class="bg-black/10 px-2 py-1 rounded text-xs font-bold">+12%</span>
-                        </div>
+                    <div class="bg-[#d9f99d] p-6 rounded-3xl text-slate-900 relative overflow-hidden group transition-all">
+                        <div class="flex justify-between items-start mb-4"><div class="bg-black/10 p-2 rounded-lg"><i data-lucide="arrow-down-left" class="w-6 h-6"></i></div><span class="bg-black/10 px-2 py-1 rounded text-xs font-bold">+12%</span></div>
                         <p class="text-sm font-semibold opacity-70">Total Pemasukan (Verified)</p>
                         <h2 class="text-3xl font-bold mt-1">Rp 120.000.000</h2>
                     </div>
-
-                    <!-- Total Keluar -->
-                    <div class="bg-[#fcd34d] p-6 rounded-3xl text-slate-900 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(252,211,77,0.4)] transition-all">
-                        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/30 rounded-full blur-2xl group-hover:bg-white/50 transition-all"></div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="bg-black/10 p-2 rounded-lg"><i data-lucide="arrow-up-right" class="w-6 h-6"></i></div>
-                            <span class="bg-black/10 px-2 py-1 rounded text-xs font-bold">-5%</span>
-                        </div>
+                    <div class="bg-[#fcd34d] p-6 rounded-3xl text-slate-900 relative overflow-hidden group transition-all">
+                        <div class="flex justify-between items-start mb-4"><div class="bg-black/10 p-2 rounded-lg"><i data-lucide="arrow-up-right" class="w-6 h-6"></i></div><span class="bg-black/10 px-2 py-1 rounded text-xs font-bold">-5%</span></div>
                         <p class="text-sm font-semibold opacity-70">Total Pengeluaran</p>
                         <h2 class="text-3xl font-bold mt-1">Rp 45.500.000</h2>
                     </div>
-
-                    <!-- Trust Score -->
                     <div class="bg-slate-800 border border-slate-700 p-6 rounded-3xl text-white relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
-                            <span class="text-green-400 text-xs font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Valid</span>
-                        </div>
+                        <div class="flex justify-between items-start mb-4"><div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg"><i data-lucide="shield-check" class="w-6 h-6"></i></div><span class="text-green-400 text-xs font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Valid</span></div>
                         <p class="text-sm font-semibold text-slate-400">Integritas Data</p>
                         <h2 class="text-3xl font-bold mt-1">100% Aman</h2>
-                        <p class="text-xs text-slate-500 mt-2">Semua node tersinkronisasi.</p>
                     </div>
                 </div>
 
-                <!-- CHART VISUALIZATION (Static SVG for UI) -->
                 <div class="bg-[#1e293b] p-6 rounded-3xl border border-slate-700">
-                    <div class="flex justify-between items-end mb-6">
-                        <div>
-                            <h3 class="text-lg font-bold text-white">Arus Kas Bulanan</h3>
-                            <p class="text-sm text-slate-400">Visualisasi Pemasukan vs Pengeluaran.</p>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex items-center gap-2 text-sm text-slate-300"><span class="w-3 h-3 rounded-full bg-[#bef264]"></span> Masuk</div>
-                            <div class="flex items-center gap-2 text-sm text-slate-300"><span class="w-3 h-3 rounded-full bg-slate-600"></span> Keluar</div>
-                        </div>
-                    </div>
-                    
-                    <!-- CSS Graph Visualization -->
+                    <div class="flex justify-between items-end mb-6"><div><h3 class="text-lg font-bold text-white">Arus Kas Bulanan</h3><p class="text-sm text-slate-400">Visualisasi Pemasukan vs Pengeluaran.</p></div></div>
                     <div class="relative h-48 w-full flex items-end justify-between gap-2 px-2">
-                        <!-- Grid lines -->
-                        <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
-                            <div class="w-full h-[1px] bg-slate-700/50"></div>
-                            <div class="w-full h-[1px] bg-slate-700/50"></div>
-                            <div class="w-full h-[1px] bg-slate-700/50"></div>
-                            <div class="w-full h-[1px] bg-slate-700/50"></div>
-                        </div>
-                        
-                        <!-- Bars (Simulated Data) -->
+                        <div class="absolute inset-0 flex flex-col justify-between pointer-events-none"><div class="w-full h-[1px] bg-slate-700/50"></div><div class="w-full h-[1px] bg-slate-700/50"></div><div class="w-full h-[1px] bg-slate-700/50"></div><div class="w-full h-[1px] bg-slate-700/50"></div></div>
                         <div class="w-full bg-slate-700/30 rounded-t-lg h-[40%] relative group"><div class="absolute bottom-0 w-full bg-[#bef264] rounded-t-lg h-[60%] opacity-80 group-hover:opacity-100 transition"></div></div>
                         <div class="w-full bg-slate-700/30 rounded-t-lg h-[60%] relative group"><div class="absolute bottom-0 w-full bg-[#bef264] rounded-t-lg h-[50%] opacity-80 group-hover:opacity-100 transition"></div></div>
                         <div class="w-full bg-slate-700/30 rounded-t-lg h-[30%] relative group"><div class="absolute bottom-0 w-full bg-[#bef264] rounded-t-lg h-[80%] opacity-80 group-hover:opacity-100 transition"></div></div>
@@ -726,122 +531,86 @@
                         <div class="w-full bg-slate-700/30 rounded-t-lg h-[70%] relative group"><div class="absolute bottom-0 w-full bg-[#bef264] rounded-t-lg h-[90%] opacity-80 group-hover:opacity-100 transition"></div></div>
                         <div class="w-full bg-slate-700/30 rounded-t-lg h-[40%] relative group"><div class="absolute bottom-0 w-full bg-[#bef264] rounded-t-lg h-[55%] opacity-80 group-hover:opacity-100 transition"></div></div>
                     </div>
-                    <div class="flex justify-between text-xs text-slate-500 mt-2 px-2">
-                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span><span>Jun</span><span>Jul</span>
-                    </div>
                 </div>
 
-                <!-- RECENT TRANSACTIONS (The "Transparency" Core) -->
                 <div class="bg-[#1e293b] rounded-3xl border border-slate-700 overflow-hidden">
-                    <div class="p-6 border-b border-slate-700 flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Ledger Blockchain Kekal</h3>
-                        <button class="text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1 rounded-lg transition">Ekspor CSV</button>
-                    </div>
+                    <div class="p-6 border-b border-slate-700 flex justify-between items-center"><h3 class="text-lg font-bold text-white">Ledger Blockchain Kekal</h3></div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm">
-                            <thead class="bg-slate-800/50 text-slate-400">
-                                <tr>
-                                    <th class="px-6 py-4 font-medium">Tanggal</th>
-                                    <th class="px-6 py-4 font-medium">Deskripsi</th>
-                                    <th class="px-6 py-4 font-medium">Bukti Digital (Hash)</th>
-                                    <th class="px-6 py-4 font-medium">Status</th>
-                                    <th class="px-6 py-4 font-medium text-right">Jumlah</th>
-                                </tr>
-                            </thead>
+                            <thead class="bg-slate-800/50 text-slate-400"><tr><th class="px-6 py-4 font-medium">Tanggal</th><th class="px-6 py-4 font-medium">Deskripsi</th><th class="px-6 py-4 font-medium">Hash</th><th class="px-6 py-4 font-medium">Status</th><th class="px-6 py-4 font-medium text-right">Jumlah</th></tr></thead>
                             <tbody class="divide-y divide-slate-700">
-                                <tr class="hover:bg-slate-800/50 transition group">
-                                    <td class="px-6 py-4 text-slate-300">20 Nov 2025</td>
-                                    <td class="px-6 py-4 font-medium text-white">Hibah Provinsi</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 font-mono text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/20 w-max cursor-pointer hover:bg-blue-400/20">
-                                            <i data-lucide="hash" class="w-3 h-3"></i> 0x7a9...8f29
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#bef264]/10 text-[#bef264]">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#bef264]"></span> Terverifikasi
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right font-bold text-[#bef264]">+ Rp 50.000.000</td>
-                                </tr>
-                                <tr class="hover:bg-slate-800/50 transition group">
-                                    <td class="px-6 py-4 text-slate-300">18 Nov 2025</td>
-                                    <td class="px-6 py-4 font-medium text-white">Pemeliharaan Jalan</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 font-mono text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/20 w-max cursor-pointer hover:bg-blue-400/20">
-                                            <i data-lucide="hash" class="w-3 h-3"></i> 0x3b1...9c12
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#bef264]/10 text-[#bef264]">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#bef264]"></span> Terverifikasi
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right font-bold text-white">- Rp 12.500.000</td>
-                                </tr>
+                                <tr class="hover:bg-slate-800/50 transition group"><td class="px-6 py-4 text-slate-300">20 Nov 2025</td><td class="px-6 py-4 font-medium text-white">Hibah Provinsi</td><td class="px-6 py-4 font-mono text-blue-400">0x7a9...8f29</td><td class="px-6 py-4"><span class="bg-[#bef264]/10 text-[#bef264] px-2 py-0.5 rounded-full text-xs">Terverifikasi</span></td><td class="px-6 py-4 text-right font-bold text-[#bef264]">+ Rp 50.000.000</td></tr>
+                                <tr class="hover:bg-slate-800/50 transition group"><td class="px-6 py-4 text-slate-300">18 Nov 2025</td><td class="px-6 py-4 font-medium text-white">Pemeliharaan Jalan</td><td class="px-6 py-4 font-mono text-blue-400">0x3b1...9c12</td><td class="px-6 py-4"><span class="bg-[#bef264]/10 text-[#bef264] px-2 py-0.5 rounded-full text-xs">Terverifikasi</span></td><td class="px-6 py-4 text-right font-bold text-white">- Rp 12.500.000</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <div id="registerModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-[#0f172a]/80 backdrop-blur-sm" id="regBackdrop"></div>
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="bg-[#1e293b] w-full max-w-md rounded-3xl border border-slate-700 p-8">
+                <h3 class="text-2xl font-bold text-white mb-4">Daftar Akun Baru</h3>
+                <div class="space-y-4">
+                    <input type="text" id="regNama" placeholder="Nama Lengkap" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white">
+                    <input type="email" id="regEmail" placeholder="Email" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white">
+                    <input type="password" id="regPassword" placeholder="Password" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white">
+                    <input type="text" id="regInstansi" placeholder="Nama Instansi/Organisasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white mb-4">
+                    <button id="submitReg" class="w-full bg-[#bef264] text-slate-900 font-bold py-3 rounded-xl">Daftar Sekarang</button>
+                    <button id="closeReg" class="w-full text-slate-400 text-sm mt-2">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        // ELEMENT REFERENCES
-        const loginBtn = document.getElementById('loginBtn');
-        const authModal = document.getElementById('authModal');
-        const closeModal = document.getElementById('closeModal');
-        const modalBackdrop = document.getElementById('modalBackdrop');
-        const doLoginBtn = document.getElementById('doLoginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
+    <div id="transModal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 bg-[#0f172a]/80 backdrop-blur-sm" id="transBackdrop"></div>
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="bg-[#1e293b] w-full max-w-md rounded-3xl border border-slate-700 shadow-2xl p-8 relative animate-fade-in-up">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i data-lucide="file-plus" class="text-[#bef264]"></i> Catat Transaksi
+                </h3>
+                <form id="transForm" class="space-y-4">
+                    <input type="text" id="transJudul" placeholder="Judul (Misal: Hibah Provinsi)" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white focus:border-[#bef264] outline-none" required>
+                    <input type="number" id="transJumlah" placeholder="Jumlah (Rupiah)" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white focus:border-[#bef264] outline-none" required>
+                    <select id="transKategori" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white focus:border-[#bef264] outline-none">
+                        <option value="Infrastruktur">Infrastruktur</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Kesehatan">Kesehatan</option>
+                    </select>
+                    <button type="submit" class="w-full bg-[#bef264] text-slate-900 font-bold py-3 rounded-xl shadow-lg transition hover:scale-[1.02]">Simpan ke Supporting Layer</button>
+                    <button type="button" id="closeTransModal" class="w-full text-slate-400 text-sm mt-2 hover:text-white transition">Batal</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        const landingView = document.getElementById('landing-view');
-        const dashboardView = document.getElementById('dashboard-view');
+    <div id="paymentModal" class="fixed inset-0 z-[120] hidden">
+        <div class="absolute inset-0 bg-[#0f172a]/90 backdrop-blur-md"></div>
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="bg-[#1e293b] w-full max-w-sm rounded-3xl border border-slate-700 p-8 text-center shadow-2xl">
+                <div class="w-20 h-20 bg-[#bef264]/10 rounded-full flex items-center justify-center text-[#bef264] mx-auto mb-6">
+                    <i data-lucide="credit-card" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Simulasi Pembayaran</h3>
+                <p class="text-slate-400 text-sm mb-6">Anda telah memilih paket <span id="selectedPlan" class="text-[#bef264] font-bold">Pro</span>.</p>
+                
+                <div class="bg-slate-900 rounded-xl p-4 mb-6 text-left border border-slate-800">
+                    <div class="flex justify-between text-sm mb-2"><span class="text-slate-500">Metode:</span><span class="text-white font-mono">Sandbox/Testnet</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-slate-500">Total:</span><span class="text-white font-bold">Rp 2.500.000</span></div>
+                </div>
 
-        // MODAL LOGIC
-        function toggleModal(show) {
-            if (show) {
-                authModal.classList.remove('hidden');
-            } else {
-                authModal.classList.add('hidden');
-            }
-        }
-
-        loginBtn.addEventListener('click', () => toggleModal(true));
-        closeModal.addEventListener('click', () => toggleModal(false));
-        modalBackdrop.addEventListener('click', () => toggleModal(false));
-
-        // ROUTING LOGIC (Simulated)
-        function switchToDashboard() {
-            toggleModal(false);
-            landingView.style.opacity = '0';
-            setTimeout(() => {
-                landingView.classList.add('hidden');
-                dashboardView.classList.remove('hidden');
-            }, 300); 
-        }
-
-        function switchToLanding() {
-            dashboardView.classList.add('hidden');
-            landingView.classList.remove('hidden');
-            setTimeout(() => {
-                landingView.style.opacity = '1';
-            }, 50);
-        }
-
-        doLoginBtn.addEventListener('click', (e) => {
-            e.preventDefault(); 
-            switchToDashboard();
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            switchToLanding();
-        });
-
-    </script>
+                <button id="confirmPay" class="w-full bg-[#bef264] text-slate-900 font-bold py-3 rounded-xl shadow-lg hover:scale-105 transition">
+                    Bayar Sekarang (Simulasi)
+                </button>
+                <p class="text-[10px] text-slate-500 mt-4 italic">*Ini adalah mode sandbox untuk kebutuhan demo PKM-KC 2025.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
