@@ -22,7 +22,7 @@ Untuk memudahkan pengujian fungsionalitas penuh tanpa perlu registrasi manual, d
 
 Email: juri@kasflow.id
 
-Password: pkmkc2025
+Password: pkmkc2026
 
 Role: Administrator (Akses Penuh Verifikasi Blockchain)
 
@@ -32,7 +32,7 @@ Dewan juri disarankan mengikuti urutan langkah berikut untuk memvalidasi fungsio
 1. Autentikasi & Personalisasi
 Masuk menggunakan kredensial di atas melalui modal Akses Dashboard.
 
-Sistem akan menampilkan nama "Juri PKM-KC 2025" dan nama instansi secara personal di dashboard.
+Sistem akan menampilkan nama "Juri PKM-KC" dan nama instansi secara personal di dashboard.
 
 2. Aktivasi Fitur SaaS (Sandbox Payment)
 Fitur verifikasi blockchain adalah fitur Enterprise.
